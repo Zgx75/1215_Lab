@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Windows</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      z-index: 1;
+    }
+    #popupOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Popup Windows</h1>
+
+<input type="number" id="input1" placeholder="Enter 1st input">
+<input type="number" id="input2" placeholder="Enter 2nd input">
+
+<button onclick="compareInputs()">Compare Inputs</button>
+
+<div id="result"></div>
+
+<button onclick="showInput(1)">Show 1st Input</button>
+<button onclick="showInput(2)">Show 2nd Input</button>
+
+<div id="popupOverlay"></div>
+
+<div id="popup1" class="popup"></div>
+<div id="popup2" class="popup"></div>
+
+<script>
+  function compareInputs() {
+    var input1 = parseFloat(document.getElementById('input1').value);
+    var input2 = parseFloat(document.getElementById('input2').value);
+    var resultDiv = document.getElementById('result');
+
+    if (input1 > input2) {
+      resultDiv.style.backgroundColor = 'lightblue';
+      resultDiv.innerHTML = input1 + ' > ' + input2;
+    } else if (input2 > input1) {
+      resultDiv.style.backgroundColor = 'orange';
+      resultDiv.innerHTML = input2 + ' > ' + input1;
+    } else {
+      resultDiv.style.backgroundColor = 'lightyellow';
+      resultDiv.innerHTML = input2 + ' == ' + input1;
+    }
+  }
+
+  function showInput(inputNumber) {
+    var input = inputNumber === 1 ? document.getElementById('input1').value : document.getElementById('input2').value;
+    var popup = document.getElementById('popup' + inputNumber);
+    var popupOverlay = document.getElementById('popupOverlay');
+
+    popup.innerHTML = 'Input ' + inputNumber + ': ' + input;
+    popup.style.display = 'block';
+    popupOverlay.style.display = 'block';
+
+    popupOverlay.onclick = function() {
+      popup.style.display = 'none';
+      popupOverlay.style.display = 'none';
+    };
+  }
+</script>
+
+</body>
+</html>
+
